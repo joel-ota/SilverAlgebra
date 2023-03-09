@@ -1,10 +1,12 @@
 <?php
 
 // Deklariranje funkcije
-function returnText(){
-    return 'Vraćeni tekst iz funkcije';
+function fullName($name, $surname){
+    $fullName = $name . ' ' . $surname;
+    
+    return strtoupper($fullName);
 }
 // Dodjeljivanje vrijednosti iz funkcije varijabli
-$funcText = returnText();
+$fullName = fullName('Ivan', 'Horvat');
 // Ispis vrijednosti varijable
-echo $funcText, "\n";
+echo $fullName, "\n";
