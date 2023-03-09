@@ -1,16 +1,10 @@
 <?php
 
-// Ispis prvih deset brojeva
-$a = 1;
-while($a <= 10){
-    echo $a, ' ';
-    $a++;
+// Deklariranje funkcije
+function returnText(){
+    return 'Vraćeni tekst iz funkcije';
 }
-
-echo "\n";
-// Ispis parnih brojeva do 100
-for($i = 1; $i < 100; $i++){
-    if(($i % 2) === 0){
-        echo $i, ' ';
-    }
-}
+// Dodjeljivanje vrijednosti iz funkcije varijabli
+$funcText = returnText();
+// Ispis vrijednosti varijable
+echo $funcText, "\n";
