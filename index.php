@@ -9,8 +9,8 @@ function randomAddition($number){
 // Deklariranje funkcije kao varijabla
 $randomAddition = 'randomAddition';
 // Pozivanje funkcije preko varijable te ispis rezultata
-echo $randomAddition(rand(1,10)) . '<br>';
-echo $randomAddition(rand(1,10)) . '<br>';
-echo $randomAddition(rand(1,10)) . '<br>';
-echo $randomAddition(rand(1,10)) . '<br>';
-echo $randomAddition(rand(1,10)) . '<br>';
+echo $randomAddition(rand(1,10)), "\n";
+echo $randomAddition(rand(1,10)), "\n";
+echo $randomAddition(rand(1,10)), "\n";
+echo $randomAddition(rand(1,10)), "\n";
+echo $randomAddition(rand(1,10)), "\n";
