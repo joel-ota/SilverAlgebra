@@ -1,12 +1,16 @@
 <?php
 
 // Deklariranje funkcije
-function fullName($name, $surname){
-    $fullName = $name . ' ' . $surname;
-    
-    return strtoupper($fullName);
+function randomAddition($number){
+    static $a = 0;
+    $a += $number;
+    return $a;
 }
-// Dodjeljivanje vrijednosti iz funkcije varijabli
-$fullName = fullName('Ivan', 'Horvat');
-// Ispis vrijednosti varijable
-echo $fullName, "\n";
+// Deklariranje funkcije kao varijabla
+$randomAddition = 'randomAddition';
+// Pozivanje funkcije preko varijable te ispis rezultata
+echo $randomAddition(rand(1,10)) . '<br>';
+echo $randomAddition(rand(1,10)) . '<br>';
+echo $randomAddition(rand(1,10)) . '<br>';
+echo $randomAddition(rand(1,10)) . '<br>';
+echo $randomAddition(rand(1,10)) . '<br>';
