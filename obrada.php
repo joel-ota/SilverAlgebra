@@ -1,12 +1,12 @@
 <?php
-// provjera varijable POST
-if(!empty($_POST)){
-    if(!empty($_POST['firstName']) || !empty($_POST['lastName'])){
-        echo 'Hi ' . $_POST['firstName'] . ' ' . $_POST['lastName'];
-    } else {
-        echo 'Upišite ime i prezime.';
-    }
+
+$uploadDir = '/var/www/html/App/uploads';
+$uploadFile = $uploadDir . '/' . $_FILES['userfile']['name'];
+
+if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)){
+    echo "File was successfully uploaded\n";
 } else {
-    echo 'Nema podataka za obradu.';
+    echo "Error while uploading file!\n";
 }
-?>
+
+var_dump($_FILES);
