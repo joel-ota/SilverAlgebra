@@ -1,6 +1,15 @@
-<form action="obrada.php" method="post" enctype="multipart/form-data">
-    <label for="userfile">Send this file:</label>
-    <input type="file" name="userfile">
-    <br>
-    <input type="submit" value="Send File">
-</form>
+<?php
+
+if (session_status() == PHP_SESSION_NONE){
+    session_start();
+}
+
+var_dump(session_status());
+
+// $_SESSION['foo'] = 'bar';
+
+session_write_close();
+
+// $_SESSION['foo'] = 'bar';
+
+// var_dump($_SESSION);
