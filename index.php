@@ -1,12 +1,10 @@
 <?php
 
-// Pokretanje sesije
-session_start();
-// Zapisivanje podatak u sesijsku varijablu
-$_SESSION['email'] = 'test@test.com';
-// Ispis podatka iz sesije
-echo $_SESSION['email'];
-// Zatvaranje sesije
-session_destroy();
-// Ispis sesijeske varijable
-print_r($_SESSION);
+// Kreiranje kolačića
+setcookie('EMAIL','test@test.com', time() + 86400, "/");
+// Ispis podatka i kolačića
+echo $_COOKIE['email'];
+// Brisanje kolačića
+setcookie("EMAIL", "", time() - 3600);
+// Ispis varijable kolačića
+print_r($_COOKIE);
