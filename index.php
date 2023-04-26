@@ -1,11 +1,14 @@
 <?php
 
 class Osoba{
-    protected readonly string $name;
-
-    protected int $age;
-
-    protected string $gender;
+    public function __construct(
+        protected string $name, 
+        protected int $age = 20, 
+        protected string $gender = 'f'
+        )
+    {
+        echo "Calling construct in Osoba\n";
+    }
 
     public function setName(string $name): void
     {
@@ -34,33 +37,41 @@ class Predavac extends Osoba
 
 class Polaznik extends Osoba
 {
+    public function __construct(
+        string $name, 
+        int $age = 20, 
+        string $gender = 'f',
+        private Predavac $predavac = new Predavac('Ivan')
+        )
+    {
+        parent::__construct($name, $age, $gender);
+        echo "Calling construct in Osoba\n";
+    }
+
+    public function __destruct()
+    {
+        echo "Mr. Stark, I don't feel so good....\n";
+    }
+
     public function sayHello(): string
     {
-        return "Hi, my name is $this->name";
-    }
+        $hello = "Hi, my name is $this->name. I am $this->age years old!";
 
-    private Predavac $predavac;
-}
+        if ($this->gender === 'm') {
+            $hello .= ' I am a male.';
+        } else {
+            $hello .= ' I am a female.';
+        }
 
-class Circle
-{
-    const PI = 3.14;
+        $hello .= " My teacher is {$this->predavac->name}";
 
-    public float $radius;
-
-    public function getOpseg()
-    {
-        return 2 * $this->radius * self::PI;
+        return $hello;
     }
 }
 
-$circle = new Circle();
+$polaznik = new Polaznik('Ana', 29);
+$polaznik2 = new Polaznik('Marko', gender: 'm');
 
-var_dump(Circle::PI);
+unset($polaznik);
 
-$polaznik = new Polaznik();
-$polaznik->setName('Ana');
-$polaznik->setAge(29);
-$polaznik->setGender(false);
-
-var_dump($polaznik->sayHello());
+var_dump($polaznik2->sayHello());
