@@ -1,8 +1,8 @@
 <?php
 
-namespace Math\Geometry;
+namespace App\Math\Geometry;
 
-use Math\Constants as Konstante;
+use App\Math\Constants as Konstante;
 
 class Circle
 {

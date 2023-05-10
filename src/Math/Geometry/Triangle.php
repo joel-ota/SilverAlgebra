@@ -1,6 +1,6 @@
 <?php
 
-namespace Math\Geometry;
+namespace App\Math\Geometry;
 
 class Triangle
 {
