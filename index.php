@@ -2,24 +2,37 @@
 
 include 'vendor/autoload.php';
 
-use App\College\Student;
-use App\College\Teacher;
+set_exception_handler(function(Throwable $ex){
+    var_dump($ex);
+    die();
+});
 
-$teacher = new Teacher('Ivan', 29, 'm');
+use App\Math\Geometry\Circle;
+use App\Math\Geometry\Exception\RadiusException;
 
-$student = new Student('Ana', 29, teacher: $teacher);
-$student2 = new Student('Marko', gender: 'm', teacher: $teacher);
-$student3 = new Student('Luka');
 
-$circle = new \App\College\Circle([
-    $teacher,
-    $student,
-    $student2
-]);
+throw new RadiusException();
 
-var_dump(
-    strlen($circle->getPeople())
-);
+try {
+    try {
+        $geometryCircle = new Circle('foo');
+    } catch (RadiusException | TypeError $e) {
+        echo "Radius must be a number greater than 0\n";
+        echo $e->getMessage(), "\n";
 
-$geometryCircle = new \App\Math\Geometry\Circle(10);
+        return;
+    } catch (\Throwable $th) {
+        echo "Exception happened while instancing a circle\n";
+        throw $th;
+    }
+
+    return;
+} catch (\Throwable $th) {
+    echo "Error!\n";
+
+    return;
+} finally {
+    echo "Finally\n";
+}
+
 var_dump($geometryCircle->getExtent());
