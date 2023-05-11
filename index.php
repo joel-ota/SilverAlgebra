@@ -1,20 +1,20 @@
 <?php
 
-use App\Math\Geometry\Circle;
 use App\Math\Geometry\Notebook;
-use App\Math\Geometry\Triangle;
-use App\Math\Geometry\Square;
+use App\Math\Geometry\ShapeFactory;
 
 include 'vendor/autoload.php';
 
+$shapeFactory = new ShapeFactory();
+
 $notebook = Notebook::getInstance();
 $notebook
-    ->addDrawableShape(new Circle(10))
-    ->addDrawableShape(new Triangle());
+    ->addDrawableShape($shapeFactory->createCircle(10))
+    ->addDrawableShape($shapeFactory->createTriangle(5, 10, 2));
 
 echo $notebook->getDrawing(), "\n";
 
 $notebook = Notebook::getInstance();
-$notebook->addDrawableShape(new Square());
+$notebook->addDrawableShape($shapeFactory->createSquare(15));
 
 echo $notebook->getDrawing(), "\n";
