@@ -4,9 +4,9 @@ namespace App\Math\Geometry;
 
 use App\Math\Constants as Konstante;
 use App\Math\Geometry\Exception\RadiusException;
-use ValueError;
+use App\Math\Geometry\Interface\Drawable;
 
-class Circle
+class Circle implements Drawable
 {
     public function __construct(private int $radius)
     {
@@ -18,5 +18,10 @@ class Circle
     public function getExtent(): int
     {
         return 2 * $this->radius * Konstante::PI;
+    }
+
+    public function draw(): string
+    {
+        return '○';
     }
 }
