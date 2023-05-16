@@ -3,12 +3,15 @@
 namespace App\Math\Geometry;
 
 use App\Math\Geometry\Interface\Drawable;
+use Iterator;
 
-class Notebook
+class Notebook implements Iterator
 {
     private static ?Notebook $instance = null;
 
     private array $shapes = [];
+
+    private int $position = 0;
 
     private function __construct()
     {}
@@ -38,5 +41,30 @@ class Notebook
         }
 
         return $drawing;
+    }
+
+    public function current(): mixed
+    {
+        return $this->shapes[$this->position];
+    }
+
+    public function next(): void
+    {
+        $this->position++;
+    }
+
+    public function key(): mixed
+    {
+        return $this->position;
+    }
+
+    public function valid(): bool
+    {
+        return isset($this->shapes[$this->position]);
+    }
+
+    public function rewind(): void
+    {
+        $this->position = 0;
     }
 }

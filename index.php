@@ -12,9 +12,10 @@ $notebook
     ->addDrawableShape($shapeFactory->createCircle(10))
     ->addDrawableShape($shapeFactory->createTriangle(5, 10, 2));
 
-echo $notebook->getDrawing(), "\n";
+for ($notebook->rewind(); $notebook->valid() ; $notebook->next()) { 
+    echo $notebook->current()->draw(), "\n";
+}
 
-$notebook = Notebook::getInstance();
-$notebook->addDrawableShape($shapeFactory->createSquare(15));
-
-echo $notebook->getDrawing(), "\n";
+foreach ($notebook as $shape) {
+    echo $shape->draw(), "\n";
+}
