@@ -4,8 +4,11 @@ namespace App\Math\Geometry;
 
 use App\Math\Geometry\Interface\Drawable;
 use Iterator;
+use SplObjectStorage;
+use SplObserver;
+use SplSubject;
 
-class Notebook implements Iterator
+class Notebook implements Iterator, SplSubject
 {
     private static ?Notebook $instance = null;
 
@@ -13,7 +16,7 @@ class Notebook implements Iterator
 
     private int $position = 0;
 
-    private function __construct()
+    private function __construct(private SplObjectStorage $observers = new SplObjectStorage())
     {}
 
     public static function getInstance(): self
@@ -28,6 +31,7 @@ class Notebook implements Iterator
     public function addDrawableShape(Drawable $shape): self
     {
         $this->shapes[] = $shape;
+        $this->notify();
 
         return $this;
     }
@@ -66,5 +70,22 @@ class Notebook implements Iterator
     public function rewind(): void
     {
         $this->position = 0;
+    }
+
+    public function attach(SplObserver $observer): void
+    {
+        $this->observers->attach($observer);   
+    }
+
+    public function detach(SplObserver $observer): void
+    {
+        $this->observers->detach($observer);   
+    }
+
+    public function notify(): void
+    {
+        foreach ($this->observers as $observer) {
+            $observer->update($this);
+        }
     }
 }
