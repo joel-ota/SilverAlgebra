@@ -1,24 +1,16 @@
 <?php
 
-use App\Math\Geometry\Notebook;
-use App\Math\Geometry\Observer\LoggingShapeObserver;
-use App\Math\Geometry\Observer\ShapeObserver;
-use App\Math\Geometry\ShapeFactory;
-
 include 'vendor/autoload.php';
+$databaseConfig = require './config/database.php';
 
-$shapeFactory = new ShapeFactory();
-$shapeObserver = new ShapeObserver();
-$loggingObserver = new LoggingShapeObserver();
+try {
+    $connection = new mysqli(
+        username: $databaseConfig['username'], 
+        password: $databaseConfig['password'], 
+        database: $databaseConfig['database']
+    );
+} catch (\Throwable $th) {
+    echo "Error while connecting to the database\n";
 
-$notebook = Notebook::getInstance();
-$notebook->attach($shapeObserver);
-$notebook->attach($loggingObserver);
-
-$notebook
-    ->addDrawableShape($shapeFactory->createCircle(10))
-    ->addDrawableShape($shapeFactory->createTriangle(5, 10, 2))->addDrawableShape($shapeFactory->createCircle(20));
-
-$notebook->detach($loggingObserver);
-
-$notebook->addDrawableShape($shapeFactory->createCircle(5));
+    return;
+}
