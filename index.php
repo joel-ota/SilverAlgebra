@@ -20,31 +20,55 @@ try {
     return;
 }
 
-var_dump($connection->getAvailableDrivers());
+// obican query
 
-// // transakcije
-// try {
-//     $connection->begin_transaction();
-//     $connection->query("INSERT INTO zanr (Naziv) VALUES('Triler')");
-//     $connection->commit();
-// } catch (\Throwable $th) {
-//     $connection->rollback();
-// }
+$result = $connection->query('SELECT * FROM zanr');
+$result->setFetchMode(PDO::FETCH_CLASS, Genre::class);
 
-// // procedure
-// $result = $connection->query('CALL dohvatiClanove()');
-
-// foreach ($result as $member) {
-//     var_dump($member);
-// }
+foreach ($result as $genre) {
+    var_dump($genre);
+}
 
 // // prepared statement
-// $id = 100;
-// $naziv = 'Triler';
+$id = 100;
+$naziv = 'Triler';
 
-// $statement = $connection->prepare("INSERT INTO zanr (ID_Zanr, Naziv) VALUES(?, ?)");
-// $statement->bind_param('is', $id, $naziv);
+$statement = $connection->prepare(
+    "INSERT INTO zanr (ID_Zanr, Naziv) VALUES(:id, :naziv)"
+);
+$statement->bindValue(':id', 200);
+$statement->bindParam(':naziv', $naziv);
 
-// if (!$statement->execute()){
-//     echo "Error while executing statement\n";
-// }
+if (!$statement->execute()){
+    echo "Error while executing statement\n";
+}
+
+$fetchGenre = $connection->prepare("SELECT * FROM zanr WHERE Naziv = ?");
+$fetchGenre->setFetchMode(PDO::FETCH_CLASS, Genre::class);
+
+try {
+    if (!$fetchGenre->execute([$_GET['naziv']])){
+        echo "Error while executing statement\n";
+    }
+    
+    var_dump($fetchGenre->fetchAll());
+} catch (\Throwable $th) {
+    var_dump($th);
+}
+
+
+// // transakcije
+try {
+    $connection->beginTransaction();
+    $connection->query("INSERT INTO zanr (Naziv) VALUES('Triler')");
+    $connection->commit();
+} catch (\Throwable $th) {
+    $connection->rollback();
+}
+
+// procedure
+$result = $connection->query('CALL dohvatiClanove()');
+
+foreach ($result as $member) {
+    var_dump($member);
+}
