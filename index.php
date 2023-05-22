@@ -6,10 +6,13 @@ include 'vendor/autoload.php';
 $databaseConfig = require './config/database.php';
 
 try {
-    $connection = new mysqli(
-        username: $databaseConfig['username'], 
-        password: $databaseConfig['password'], 
-        database: $databaseConfig['database']
+    $connection = new PDO(
+        "mysql:host={$databaseConfig['host']};dbname={$databaseConfig['database']}", 
+        $databaseConfig['username'], 
+        $databaseConfig['password'],
+        [
+            PDO::ATTR_PERSISTENT => true,
+        ]
     );
 } catch (\Throwable $th) {
     echo "Error while connecting to the database\n";
@@ -17,29 +20,31 @@ try {
     return;
 }
 
-// transakcije
-try {
-    $connection->begin_transaction();
-    $connection->query("INSERT INTO zanr (Naziv) VALUES('Triler')");
-    $connection->commit();
-} catch (\Throwable $th) {
-    $connection->rollback();
-}
+var_dump($connection->getAvailableDrivers());
 
-// procedure
-$result = $connection->query('CALL dohvatiClanove()');
+// // transakcije
+// try {
+//     $connection->begin_transaction();
+//     $connection->query("INSERT INTO zanr (Naziv) VALUES('Triler')");
+//     $connection->commit();
+// } catch (\Throwable $th) {
+//     $connection->rollback();
+// }
 
-foreach ($result as $member) {
-    var_dump($member);
-}
+// // procedure
+// $result = $connection->query('CALL dohvatiClanove()');
 
-// prepared statement
-$id = 100;
-$naziv = 'Triler';
+// foreach ($result as $member) {
+//     var_dump($member);
+// }
 
-$statement = $connection->prepare("INSERT INTO zanr (ID_Zanr, Naziv) VALUES(?, ?)");
-$statement->bind_param('is', $id, $naziv);
+// // prepared statement
+// $id = 100;
+// $naziv = 'Triler';
 
-if (!$statement->execute()){
-    echo "Error while executing statement\n";
-}
+// $statement = $connection->prepare("INSERT INTO zanr (ID_Zanr, Naziv) VALUES(?, ?)");
+// $statement->bind_param('is', $id, $naziv);
+
+// if (!$statement->execute()){
+//     echo "Error while executing statement\n";
+// }
