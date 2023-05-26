@@ -3,6 +3,7 @@
 namespace App\Test\Math\Geometry;
 
 use App\Math\Geometry\Circle;
+use App\Math\Geometry\Exception\RadiusException;
 use PHPUnit\Framework\TestCase;
 
 class CircleTest extends TestCase
@@ -30,6 +31,27 @@ class CircleTest extends TestCase
             [10, 2 * 3.14 * 10],
             [100, 2 * 3.14 * 100],
             [5, 2 * 3.14 * 5],
+        ];
+    }
+
+    /**
+     * @dataProvider getInvalidRadiuses
+     */
+    public function testCreatingACircleWillThrowExceptionIfRadiusIsInvalid(int $radius)
+    {
+        $this->expectException(RadiusException::class);
+        $this->expectExceptionMessage('Radius is invalid');
+        $this->expectExceptionCode(476);
+
+        new Circle($radius);
+    }
+
+    public static function getInvalidRadiuses()
+    {
+        return [
+            [-10],
+            [0],
+            [-100]
         ];
     }
 }
