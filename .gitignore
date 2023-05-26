@@ -2,3 +2,4 @@
 vendor/
 config/
 .phpunit.result.cache
+/test/coverage/
