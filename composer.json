@@ -1,6 +1,9 @@
 {
     "autoload": {
-        "psr-4": {"App\\": "src/"}
+        "psr-4": {
+            "App\\": "src/",
+            "Core\\": "libs/"
+        }
     },
     "autoload-dev": {
         "psr-4": {"App\\Test\\": "test/"}

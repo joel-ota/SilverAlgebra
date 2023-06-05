@@ -26,7 +26,6 @@ src/
         Api/
     Response/
         Api/
-index.php
 vendor/
 tests/
 .env
