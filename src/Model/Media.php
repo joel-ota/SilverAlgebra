@@ -4,7 +4,7 @@ namespace App\Model;
 
 use Core\Model;
 
-class Genre extends Model
+class Media extends Model
 {
     public function getClassName(): string
     {
@@ -13,6 +13,6 @@ class Genre extends Model
 
     public function getTable(): string
     {
-        return 'zanr';
+        return 'medij';
     }
 }

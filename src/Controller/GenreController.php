@@ -9,8 +9,7 @@ class GenreController
     public function index()
     {
         $genre = new Genre();
-        $genres = $genre->findAll();
 
-        return $genres;
+        return $genre->findAll();
     }
 }
