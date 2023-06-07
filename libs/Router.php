@@ -6,7 +6,7 @@ class Router
 {
     private static array $routes = [];
 
-    public static function get(string $route, callable $callback): void
+    public static function get(string $route, callable|array $callback): void
     {
         self::$routes['GET'][$route] = $callback;
     }
@@ -19,7 +19,15 @@ class Router
             return '404 - Page not found';
         }
 
-        $response = $callback();
+        if (is_array($callback)) {
+            // callback is an array with controller class and method
+            $controller = new $callback[0]();
+
+            $response = $controller->{$callback[1]}();
+        } else {
+            // callback is a function, just call it to get the response
+            $response = $callback();
+        }
 
         if (is_array($response)){
             return json_encode($response);
