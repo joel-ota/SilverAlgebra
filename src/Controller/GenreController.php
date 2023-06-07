@@ -2,14 +2,15 @@
 
 namespace App\Controller;
 
+use App\Model\Genre;
+
 class GenreController
 {
     public function index()
     {
-        return [
-            ['name' => 'Horor'],
-            ['name' => 'Komedija'],
-            ['name' => 'Drama'],
-        ];
+        $genre = new Genre();
+        $genres = $genre->findAll();
+
+        return $genres;
     }
 }
