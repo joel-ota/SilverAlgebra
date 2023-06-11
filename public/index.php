@@ -17,4 +17,7 @@ define(
 define('DB_USERNAME', $databaseConfig['username']);
 define('DB_PASSWORD', $databaseConfig['password']);
 
+
+
 (new Application())->run();
+
