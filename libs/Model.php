@@ -1,5 +1,4 @@
 <?php
-
 namespace Core;
 
 use PDO;
@@ -8,8 +7,7 @@ abstract class Model
 {
     public function __construct(
         private PDO $connection = new PDO(DB_DSN, DB_USERNAME, DB_PASSWORD)
-        )
-    {}
+    ) {}
 
     public function findAll(): array
     {
@@ -18,7 +16,16 @@ abstract class Model
         );
         $query->setFetchMode(PDO::FETCH_CLASS, $this->getClassName());
 
-        return $query->fetchAll();
+        $results = $query->fetchAll();
+
+       
+        $formattedResults = [];
+        foreach ($results as $result) {
+            $formattedResults[] = $result;
+            $formattedResults[] = json_encode($entries .  '    '    . JSON_PRETTY_PRINT);
+        }
+
+        return $formattedResults;
     }
 
     abstract function getClassName(): string;
