@@ -4,6 +4,7 @@ use Core\Application;
 
 define('ROOT', realpath(__DIR__ . '/../'));
 define('CONFIG', ROOT . '/config');
+define('VIEW', ROOT . '/src/View/');
 
 require ROOT . '/vendor/autoload.php';
 require CONFIG . '/routes.php';
@@ -17,7 +18,4 @@ define(
 define('DB_USERNAME', $databaseConfig['username']);
 define('DB_PASSWORD', $databaseConfig['password']);
 
-
-
 (new Application())->run();
-

@@ -20,12 +20,12 @@ class Router
         }
 
         if (is_array($callback)) {
-            // callback is an array with controller class and method
+           
             $controller = new $callback[0]();
 
             $response = $controller->{$callback[1]}();
         } else {
-            // callback is a function, just call it to get the response
+         
             $response = $callback();
         }
 

@@ -15,7 +15,13 @@ Router::get('/contact', [SiteController::class, 'contact']);
 Router::get('/genres', [GenreController::class, 'index']);
 
 Router::get('/media', [MediaController::class, 'index']);
+
+Router::get('/media/home', [MediaController::class, 'home']);
+
 Router::get('/customers', [CustomersController::class, 'index']);
+
+Router::get('/customers/home', [CustomersController::class, 'index']);
+
 Router::get('/bok', function()
 {
     return 'bok';

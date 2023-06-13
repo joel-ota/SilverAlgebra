@@ -8,4 +8,11 @@ class SiteController
     {
         return 'Contact';
     }
+
+    public function about()
+    {
+        $this->renderView('app', [
+            'title' => 'About'
+        ]);
+    }
 }
