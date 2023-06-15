@@ -1,7 +1,6 @@
 <?php
 
-use App\Service\AppService;
-use App\Service\MediaAppService;
+use App\Http\Controllers\MediaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,8 +14,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function (
-    AppService $appService, MediaAppService $mediaAppService
-    ) {
-    dd($appService, $mediaAppService);
+Route::view('/homepage', 'welcome')->name('home');
+
+Route::controller(MediaController::class)->group(function (){
+    Route::get('/media', 'index');
+
+    Route::get('/media/{name}', 'show')
+        ->whereAlpha('name');
+
+    Route::get('/media/{id}', 'showById');
+});
+
+Route::prefix('admin')->group(function(){
+    Route::get('/csrf', function(){
+        return 'foo';
+    });
+    
+    Route::get('/redirect', function(){
+        return to_route('home');
+    });
 });
