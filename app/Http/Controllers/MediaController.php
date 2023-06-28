@@ -8,7 +8,7 @@ class MediaController
 {
     public function index(Request $request)
     {
-        dd($request->route());
+        
         return ['cd', 'dvd'];
     }
 
