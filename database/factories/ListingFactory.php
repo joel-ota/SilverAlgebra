@@ -1,32 +1,30 @@
 <?php
 
-namespace Database\Factories;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Listing>
- */
-class ListingFactory extends Factory
+class Listing extends Model
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-        return [
-            
-                'title' => $this->faker->sentence(),
-                'tags' => 'laravel, api, backend',
-                'company' => $this->faker->company(),
-                'email' => $this->faker->companyEmail(),
-                'website' => $this->faker->url(),
-                'location' => $this->faker->city(),
-                'description' => $this->faker->paragraph(5),
-            
+    use HasFactory;
 
-        ];
+    // protected $fillable = ['title', 'company', 'location', 'website', 'email', 'description', 'tags'];
+
+    public function scopeFilter($query, array $filters) {
+        if($filters['tag'] ?? false) {
+            $query->where('tags', 'like', '%' . request('tag') . '%');
+        }
+
+        if($filters['search'] ?? false) {
+            $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('description', 'like', '%' . request('search') . '%')
+                ->orWhere('tags', 'like', '%' . request('search') . '%');
+        }
+    }
+
+    // Relationship To User
+    public function user() {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

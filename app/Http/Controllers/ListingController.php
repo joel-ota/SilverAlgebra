@@ -61,8 +61,12 @@ class ListingController extends Controller
 
      //Update imputa od drugih ljudit
      public function update(Request $request, Listing $listing)
-     
-     {$formFields = $request ->validate([
+     {
+        //auth vlasnik
+      if($listing->user_id != auth()->id()){
+          abort(403, 'Nemože!');
+      }
+     $formFields = $request ->validate([
             'title' => 'required',
             'company' => ['required'],
             'location' => 'required',
@@ -80,13 +84,15 @@ class ListingController extends Controller
 
         $listing->update($formFields);
 
-      
+    
 
         return back()->with('message', 'Posao updatean');
 }
 
         //delete
         public function delete(Listing $listing) {
+
+            
                 $listing->delete();
                 return redirect('/')->with('message','Posao obrisan!');
         }
